@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Becoming a Trustee · Sats for Good Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F7F3ED;
+    --ivory-deep: #EFE9DE;
+    --charcoal: #1F1812;
+    --muted: #6B5F52;
+    --rule: #D6CFC1;
+    --orange: #F7931A;
+    --moss: #2F5233;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Password gate */
+  #pw-screen {
+    position: fixed; inset: 0;
+    background: var(--ivory);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 999;
+    padding: 24px;
+  }
+  #pw-screen h1 {
+    font-size: 32px; font-weight: 800;
+    margin: 0 0 8px; letter-spacing: -0.5px;
+  }
+  #pw-screen p {
+    color: var(--muted);
+    margin: 0 0 28px;
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+  }
+  #pw-input {
+    font-family: inherit;
+    font-size: 18px;
+    padding: 12px 16px;
+    border: 1px solid var(--rule);
+    background: white;
+    width: 280px;
+    border-radius: 2px;
+    color: var(--charcoal);
+  }
+  #pw-input:focus { outline: 1px solid var(--charcoal); }
+  #pw-submit {
+    font-family: inherit;
+    font-size: 18px;
+    padding: 12px 24px;
+    background: var(--charcoal);
+    color: var(--ivory);
+    border: none;
+    margin-top: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  #pw-error {
+    color: var(--orange);
+    margin-top: 14px;
+    font-size: 15px;
+    min-height: 18px;
+    font-style: italic;
+  }
+
+  #content { display: none; }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+  }
+
+  header.doc-head {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  h1.title {
+    font-size: 46px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0;
+    font-size: 20px;
+  }
+
+  section.s {
+    margin-bottom: 44px;
+  }
+  section.s h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 14px;
+    letter-spacing: -0.3px;
+  }
+  section.s h2 em {
+    font-weight: 400;
+    color: var(--moss);
+  }
+  section.s p {
+    margin: 0 0 14px;
+  }
+  section.s p:last-child { margin-bottom: 0; }
+
+  .num {
+    display: inline-block;
+    font-style: italic;
+    color: var(--orange);
+    font-weight: 500;
+    margin-right: 6px;
+  }
+
+  ul.tight {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.tight li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  ul.tight li:last-child { border-bottom: none; }
+  ul.tight strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  ul.tight span {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 8px;
+  }
+  @media (max-width: 640px) {
+    .twocol { grid-template-columns: 1fr; gap: 24px; }
+    .wrap { padding: 60px 22px 50px; }
+    h1.title { font-size: 36px; }
+    body { font-size: 18px; }
+    section.s h2 { font-size: 23px; }
+  }
+  .col h3 {
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .col.pros h3 { color: var(--moss); }
+  .col.cons h3 { color: var(--orange); }
+  .col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .col li {
+    padding: 8px 0;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .col li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  .callout {
+    background: var(--ivory-deep);
+    border-left: 3px solid var(--moss);
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 18px;
+  }
+  .callout p { margin: 0 0 10px; }
+  .callout p:last-child { margin: 0; }
+  .callout strong { color: var(--moss); }
+
+  footer.doc-foot {
+    border-top: 1px solid var(--rule);
+    padding-top: 28px;
+    margin-top: 48px;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .sig {
+    margin: 28px 0 0;
+    font-style: italic;
+    color: var(--charcoal);
+  }
+  .sig strong { font-style: normal; }
+</style>
+</head>
+<body>
+
+<div id="pw-screen">
+  <h1>Sats for Good Foundation</h1>
+  <p>Trustee invitation — password required</p>
+  <input id="pw-input" type="password" autocomplete="off" placeholder="Password" autofocus>
+  <button id="pw-submit">Continue</button>
+  <div id="pw-error"></div>
+</div>
+
+<div id="content">
+  <div class="wrap">
+
+    <header class="doc-head">
+      <p class="eyebrow">Sats for Good Foundation · CIO Registration Pending</p>
+      <h1 class="title">Becoming a <em>trustee.</em></h1>
+      <p class="subtitle">A short document for prospective trustees of the Sats for Good Foundation, the charitable arm of Bitcoin for Good.</p>
+    </header>
+
+    <section class="s">
+      <h2><span class="num">i.</span> What this is, and why a charity is needed</h2>
+      <p><strong>Bitcoin for Good</strong> is a UK donor-advised fund for cryptoasset giving. Donors give Bitcoin (or other crypto); the platform converts the asset through a licensed OTC partner; the gift reaches the donor's chosen UK charity as GBP. The donor receives a tax receipt, and — under section 257 of the Taxation of Chargeable Gains Act 1992 — their capital gain on the donated asset is extinguished, not deferred. This is the core mechanic.</p>
+
+      <h3 style="font-size: 17px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--moss); margin: 28px 0 12px;">Why this matters for UK giving</h3>
+      <p>UK crypto holders are sitting on an estimated <strong>£8–12bn in unrealised gains</strong> entering 2025. Most of that wealth is dormant from a philanthropic point of view: the donor would have to sell first, take an 18–24% capital gains tax hit, and only then give the smaller post-tax balance — so they don't. The s.257 route has been legally available since HMRC classified crypto as a chargeable asset in 2018, but until now there has been no UK platform set up to use it.</p>
+      <p>What that means in practice for UK charities:</p>
+      <ul class="tight">
+        <li><strong>More giving overall</strong> <span>Gifts that would not happen at all under the sell-then-donate path become possible. The route does not redirect existing giving; it adds new giving by removing the tax wall.</span></li>
+        <li><strong>Larger gifts per donor</strong> <span>After the platform's fee, more of the donor's intended gift reaches the charity than the sell-then-donate path delivers — the fee is materially smaller than the CGT that would otherwise be paid. The donor's cascading tax saving (annual exempt amount preserved, basic-rate band protected) often makes the next gift larger too.</span></li>
+        <li><strong>Reach across the sector</strong> <span>The Foundation can grant to any of the 170,000+ UK-registered charities — donors are not restricted to a small partner list, and small charities benefit alongside large ones.</span></li>
+        <li><strong>Anonymity restored where it matters</strong> <span>The receiving charity never learns the donor's identity. This matters for traditions that require anonymity in giving (e.g. zakat in Islamic giving) and for HNW donors who have stopped giving publicly for safety reasons.</span></li>
+      </ul>
+
+      <h3 style="font-size: 17px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--moss); margin: 28px 0 12px;">Why a separate charity is needed</h3>
+      <p>Two legal entities are required to make this work, and both are part of the architecture:</p>
+      <ul class="tight">
+        <li><strong>Sats for Good Ltd</strong> <span>The commercial, profit-making company. Operates the platform, runs conversions through the OTC partner, builds and maintains the technology. Owned by the founder (me).</span></li>
+        <li><strong>Sats for Good Foundation</strong> <span>The registered charity (a Charitable Incorporated Organisation, or CIO — application pending with the Charity Commission). Legal recipient of every donation. Issues the tax receipt. Makes the grant to the chosen end-charity. Independently governed by its trustees.</span></li>
+      </ul>
+      <p style="margin-top: 14px;">UK charity tax law requires this separation. A donor cannot give to a commercial company and claim charitable relief; the Foundation is the legal donee. The structure mirrors how Fidelity Charitable, Schwab Charitable, and Charities Aid Foundation operate — a commercial services entity paired with an independently-governed charity.</p>
+      <p>The Foundation needs trustees. That is what this document is about.</p>
+    </section>
+
+    <section class="s">
+      <h2><span class="num">ii.</span> What a trustee actually is</h2>
+      <p>Trustees are the legal directors of a UK charity. They hold final authority over the charity's purposes, decisions, and use of funds — the Charity Commission regulates them personally as well as the organisation collectively.</p>
+      <ul class="tight">
+        <li><strong>Fiduciary duty</strong> <span>You act in the charity's interest — not the founder's, not the commercial company's, not your own. This is load-bearing.</span></li>
+        <li><strong>Strategic oversight</strong> <span>You approve the plan, the budget, the major decisions, the annual accounts. You do not run day-to-day operations.</span></li>
+        <li><strong>Compliance accountability</strong> <span>You sign the trustees' annual report and accounts. The Commission can act against trustees personally for serious breaches.</span></li>
+        <li><strong>Cadence</strong> <span>Quarterly board meetings, with papers circulated in advance. Occasional ad-hoc decisions between meetings. Heavier during the registration phase, lighter once steady-state.</span></li>
+        <li><strong>Public record</strong> <span>Your name appears on the Charity Commission's public register as a trustee of Sats for Good Foundation.</span></li>
+        <li><strong>Personal liability</strong> <span>A CIO limits trustee liability to a nominal sum (typically £1) — you are not personally liable for the charity's debts. Indemnity insurance is carried from registration. The risk is regulatory and reputational, not financial.</span></li>
+      </ul>
+    </section>
+
+    <section class="s">
+      <h2><span class="num">iii.</span> Pros and cons, honestly</h2>
+      <div class="twocol">
+        <div class="col pros">
+          <h3>Pros</h3>
+          <ul>
+            <li>A direct hand in growing the flow of donations into the UK charity sector — unlocking giving that would not otherwise happen rather than redirecting what already does.</li>
+            <li>Material contribution to a novel piece of UK charitable infrastructure — there is no UK-native crypto DAF at present.</li>
+            <li>Public-register trusteeship of a credibly-structured CIO. Counts as governance experience for future roles.</li>
+            <li>Front-row seat on a regulated cryptoasset structure as it is built, with full access to the legal and tax work behind it.</li>
+          </ul>
+        </div>
+        <div class="col cons">
+          <h3>Cons</h3>
+          <ul>
+            <li>Crypto sits in a public-image space that occasionally attracts unfavourable press coverage. As a trustee on the public register, you are associated with that space by name.</li>
+            <li>You are taking on regulated fiduciary duties. Even with insurance and a CIO's liability cap, you are personally accountable to the Commission for breach of trustee duty.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="s">
+      <h2><span class="num">iv.</span> The founder–Chair structure, and what it asks of you</h2>
+      <p>I am the founder of Bitcoin for Good and the intended Chair of Sats for Good Foundation. The operational and regulatory workload sits with me: drafting the application, instructing counsel where needed, running the registration, building the platform, securing OTC and banking partners, growing the donor base. None of that is governance work — it is execution.</p>
+      <p>Your role is fiduciary oversight and independent judgement. For that role to be substantive — and for the Commission's independence tests to be passed cleanly — the structure is built around the assumption that you will, at times, disagree with me. The following are commitments, not aspirations:</p>
+      <div class="callout">
+        <p><strong>Recusal.</strong> I will recuse from any board vote affecting Sats for Good Ltd — the commercial entity I own. That includes the services agreement between the Foundation and the Ltd, its review, and any future amendment.</p>
+        <p><strong>Trustee-only sessions.</strong> The board will hold trustee-only sessions quarterly, without the Chair, by default. The agenda is set by the other trustees.</p>
+        <p><strong>Conflict-of-interest policy.</strong> A documented policy will be approved at the first board meeting and reviewed annually. Material conflicts are declared and minuted; on those matters, I do not vote.</p>
+        <p><strong>Indemnity insurance.</strong> Carried by the Foundation from registration, covering all trustees.</p>
+        <p><strong>The board owns the Foundation, not me.</strong> If at any point you believe a decision is not in the Foundation's interest, the structure is built so that you can say so and be heard — and, if it comes to it, vote against me with the second trustee and prevail.</p>
+      </div>
+      <p>The phrase "heavy lifting" should be read as workload, not authority. I expect to do the operational work. Authority over the Foundation sits with the trustees collectively.</p>
+    </section>
+
+    <section class="s">
+      <h2><span class="num">v.</span> Who this is right for</h2>
+      <p>The Foundation needs two unaffiliated trustees alongside the Chair. Any of the three profiles below would fit:</p>
+      <ul class="tight">
+        <li><strong>A technology or crypto-fluent trustee</strong> <span>Capable of evaluating the platform, the OTC partner, and the custody question. Not necessarily a crypto native, but someone who can ask the right questions of the engineering and risk side.</span></li>
+        <li><strong>An academic with relevant subject-matter expertise</strong> <span>Economics, public finance, philanthropic studies, sociology of giving, cooperation and altruism research, or a technology field. Brings independent professional standing, rigour in articulating public benefit, and a research lens on what good giving infrastructure should look like.</span></li>
+        <li><strong>A finance or regulatory professional</strong> <span>Charity finance, financial services regulation, audit, or compliance background. Able to read the services agreement and the tax structure with technical competence, and to push back substantively if either is wrong.</span></li>
+      </ul>
+      <p style="margin-top: 16px;">This is not the right role for someone who would find quarterly meetings, fiduciary accountability, or the related-party structure uncomfortable. It is also not the right role for someone whose professional standing depends on the founder's goodwill — the Commission's independence test reads that as captive.</p>
+    </section>
+
+    <section class="s">
+      <h2><span class="num">vi.</span> Next step</h2>
+      <p>If you are open to the conversation, reach out to me directly. I'll send the full strategy brief separately by request, and we can find 30 minutes to walk through the structure, the timeline, and what the first twelve months look like in practice.</p>
+      <p class="sig">— <strong>Anwar</strong><br>Founder, Bitcoin for Good · Intended Chair, Sats for Good Foundation</p>
+    </section>
+
+    <footer class="doc-foot">
+      <div>Sats for Good Foundation · CIO application in preparation</div>
+      <div>Confidential · for prospective trustees only</div>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    const PASSWORD = 'bitcoinforgood2026';
+    const pwScreen = document.getElementById('pw-screen');
+    const pwInput  = document.getElementById('pw-input');
+    const pwBtn    = document.getElementById('pw-submit');
+    const pwErr    = document.getElementById('pw-error');
+    const content  = document.getElementById('content');
+
+    function unlock() {
+      if (pwInput.value === PASSWORD) {
+        pwScreen.style.display = 'none';
+        content.style.display = 'block';
+        try { sessionStorage.setItem('sfg_trustees_unlocked', '1'); } catch (e) {}
+      } else {
+        pwErr.textContent = 'Incorrect. Try again.';
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    }
+
+    if (sessionStorage.getItem('sfg_trustees_unlocked') === '1') {
+      pwScreen.style.display = 'none';
+      content.style.display = 'block';
+    }
+
+    pwBtn.addEventListener('click', unlock);
+    pwInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') unlock();
+    });
+  })();
+</script>
+
+</body>
+</html>
